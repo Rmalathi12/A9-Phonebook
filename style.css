@@ -7,7 +7,7 @@
 body {
     background: linear-gradient(135deg, hsl(187, 72%, 93%), #f1f8ff);
     min-height: 100vh;
-    color: #333;
+    color: #1a1919;
 }
 /* Header */
 header {
@@ -47,7 +47,7 @@ section {
 #searchInput {
     width: 75%;
     padding: 14px;
-    border: 2px solid #1976d2;
+    border: 2px solid lightseagreen;
     border-radius: 10px;
     outline: none;
     font-size: 1rem;

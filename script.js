@@ -1,4 +1,4 @@
-// DOM selecting Elements
+// selecting Elements
 const contactForm = document.getElementById("contactForm");
 const searchInput = document.getElementById("searchInput");
 const contactList = document.getElementById("contactList"); // This is our 'container'
@@ -15,59 +15,6 @@ const cancelBtn = document.getElementById("cancelBtn");
 // Global variable
 let editId = null;
 let contacts = []; // We will store fetched contacts here for search and edit filtering
-
-// Display cantacts
-async function displayContacts(filteredData = null) {
-  try{
-    // if condition is applied and fetch all data
-    if(!filteredData){
-      const res = await fetch("https://api-mockforge.onrender.com/api/databases/69f078982c9134e30a4486e3/resources/contact");
-      if(!res.ok) throw new Error ("failed to loaded contacts");
-      const rawData = await res . json();
-      // Hadling to API response structures
-      contacts = rawData.data?.items || rawData.data || rawData || [];
-    } else{
-      contacts = filteredData;
-    }
-    // contactList first so dosn't duplicate
-    contactList.innerHTML = "";
-    // handel empty state
-    if(contacts.length ===0){
-      contactList.innerHTML = `
-      <div class="col-12"> 
-      <div class="alert alert-info text-center">
-      No contacts found
-      </div>
-      </div>`;
-      return;
-    }
-    // to maping this data
-    contacts.map((contact)=>{
-      const contactId = contact._id || contact.id;
-      // to display the innerhtml 
-      contactList.innerHTML +=`
-      <div class="col-md-6 col-lg-4 mb-3 ">
-            <div class="card ">
-                <div class="card-body">
-                    <h4 class="card-title text-primary">${contact.name}</h4>
-                    <p class="card-text">📞 ${contact.phone}</p>
-                    <p class="card-text">✉️ ${contact.email}</p>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-warning w-100" onclick="editContact('${contactId}')">Edit</button>
-                        <button class="btn btn-danger w-100" onclick="deleteContact('${contactId}')">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-      `;
-    });
-    }catch (error) {
-    console.log(error);
-    showMessage(error.message, "error");
-  }  
-}
-// To check the contents
-// console.log(displayContacts(filteredData = null));
 
 // create contact
 async function createContact(contactData) {
